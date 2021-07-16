@@ -28,6 +28,6 @@ namespace WebAppContabilidad.Models
         public decimal Balance { get; set; }
         public bool Estado { get; set; }
 
-        public ICollection<CuentaContable> CuentaContablx { get; set; }
+        public ICollection<CuentaContable> CuentasContables { get; set; }
     }
 }

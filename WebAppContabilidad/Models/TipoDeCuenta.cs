@@ -17,6 +17,6 @@ namespace WebAppContabilidad.Models
         public bool Estado { get; set; }
 
 
-        public ICollection<CuentaContable> CuentaContable { get; set; }
+        public ICollection<CuentaContable> CuentasContables { get; set; }
     }
 }
