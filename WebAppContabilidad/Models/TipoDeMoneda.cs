@@ -5,10 +5,11 @@ using System.Threading.Tasks;
 
 namespace WebAppContabilidad.Models
 {
-    public class Moneda
+    public class TipoDeMoneda
     {
         public int Id { get; set; }
         public string Descripcion { get; set; }
-        public string TasaDeCambio { get; set; }
+        public decimal TasaDeCambio { get; set; }
+        public bool Estado { get; set; }
     }
 }

@@ -14,5 +14,9 @@ namespace WebAppContabilidad.Models
         public int Id { get; set; }
         public string Descripcion { get; set; }
         public Origen Origen { get; set; }
+        public bool Estado { get; set; }
+
+
+        public ICollection<CuentaContable> CuentaContable { get; set; }
     }
 }
