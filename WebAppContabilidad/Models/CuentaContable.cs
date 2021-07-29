@@ -8,26 +8,32 @@ namespace WebAppContabilidad.Models
 {
     public class CuentaContable
     {
+        public CuentaContable()
+        {
+            InverseCuentaMayorNavigation = new HashSet<CuentaContable>();
+        }
         public int Id { get; set; }
         public string Descripcion { get; set; }
 
-        //Foreign Key Tipo de cuenta
-        [ForeignKey("TipoDeCuenta")]
-        public int TipoDeCuentaId { get; set; }
-        public TipoDeCuenta TipoDeCuenta { get; set; }
+        public int? TipoDeCuenta { get; set; }
 
 
         public bool PermiteTransacciones { get; set; }
 
-        //Foreign Key Cuenta Mayor
-        [ForeignKey("CuentaMayor")]
-        public int CuentaMayorId { get; set; }
-        public CuentaContable CuentaMayor { get; set; }
+        public int? CuentaMayor { get; set; }
 
-
+        [Column(TypeName = "decimal(11, 2)")]
         public decimal Balance { get; set; }
         public bool Estado { get; set; }
 
-        public ICollection<CuentaContable> CuentasContables { get; set; }
+
+        [ForeignKey(nameof(CuentaMayor))]
+        [InverseProperty(nameof(CuentaContable.InverseCuentaMayorNavigation))]
+        public virtual CuentaContable CuentaMayorNavigation { get; set; }
+        [ForeignKey(nameof(TipoDeCuenta))]
+        [InverseProperty(nameof(WebAppContabilidad.Models.TipoDeCuenta.CuentasContables))]
+        public virtual TipoDeCuenta TipoDeCuentaNavigation { get; set; }
+        [InverseProperty(nameof(CuentaContable.CuentaMayorNavigation))]
+        public virtual ICollection<CuentaContable> InverseCuentaMayorNavigation { get; set; }
     }
 }

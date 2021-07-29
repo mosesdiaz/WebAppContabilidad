@@ -24,6 +24,20 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Gestión
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="CuentasContables" asp-action="Index">Cuentas contables</a>
+                                <hr />
+                                <a class="nav-link text-dark" asp-area="" asp-controller="SistemasAuxiliares" asp-action="Index">Sistemas auxiliares</a>
+                                <hr />
+                                <a class="nav-link text-dark" asp-area="" asp-controller="TipoDeCuentas" asp-action="Index">Tipos de cuentas</a>
+                                <hr />
+                                <a class="nav-link text-dark" asp-area="" asp-controller="TipoDeMonedas" asp-action="Index">Tipos de monedas</a>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>
