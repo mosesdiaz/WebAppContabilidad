@@ -13,6 +13,8 @@ namespace WSContabilidad.Models
         public int Tipo { get; set; }
         public int Balance { get; set; }
         public int? CuentaMayor { get; set; }
+
+        public bool Estado { get; set; }
         //public CuentasContables CuentaContable { get; set; }
         //public List<CuentasContables> CuentasContable { get; set; }
         //public List<TransaccionesAsientos> Transacciones { get; set; }
