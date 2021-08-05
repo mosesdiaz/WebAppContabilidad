@@ -13,7 +13,10 @@ namespace WSContabilidad.Models
         {
             Database.EnsureCreated();
         }
+        public DbSet<CuentasContables> CuentasContables { get; set; }
 
         public DbSet<TodoItem> TodoItems { get; set; }
+
     }
+
 }
