@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31112.23
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAppContabilidad", "WebAppContabilidad\WebAppContabilidad.csproj", "{2A64E42E-2615-404F-9CD3-3B4911D56BC9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAppContabilidad", "WebAppContabilidad\WebAppContabilidad.csproj", "{2A64E42E-2615-404F-9CD3-3B4911D56BC9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WSContabilidad", "WSContabilidad\WSContabilidad.csproj", "{37BD62FF-3810-461C-ABD7-E716955D34FD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{2A64E42E-2615-404F-9CD3-3B4911D56BC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2A64E42E-2615-404F-9CD3-3B4911D56BC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2A64E42E-2615-404F-9CD3-3B4911D56BC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37BD62FF-3810-461C-ABD7-E716955D34FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37BD62FF-3810-461C-ABD7-E716955D34FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37BD62FF-3810-461C-ABD7-E716955D34FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37BD62FF-3810-461C-ABD7-E716955D34FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
