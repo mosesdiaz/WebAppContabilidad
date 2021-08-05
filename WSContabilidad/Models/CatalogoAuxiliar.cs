@@ -11,7 +11,7 @@ namespace WSContabilidad.Models
         public string Descripcion { get; set; }
         public bool Estado { get; set; }
 
-        public ICollection<Asiento> Asientos { get; set; }
+        //public ICollection<Asiento> Asientos { get; set; }
 
     }
 }

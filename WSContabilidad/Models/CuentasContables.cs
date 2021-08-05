@@ -13,7 +13,7 @@ namespace WSContabilidad.Models
         public int Tipo { get; set; }
         public int Balance { get; set; }
         public int? CtaMayor { get; set; }
-        public CuentasContables CuentaContable { get; set; }
-        public ICollection<CuentasContables> Cuentas { get; set; }
+        //public CuentasContables CuentaContable { get; set; }
+        //public ICollection<CuentasContables> Cuentas { get; set; }
     }
 }

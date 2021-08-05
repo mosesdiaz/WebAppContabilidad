@@ -11,27 +11,27 @@ namespace WSContabilidad.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AsientoesController : ControllerBase
+    public class AsientosController : ControllerBase
     {
         private readonly TodoContext _context;
 
-        public AsientoesController(TodoContext context)
+        public AsientosController(TodoContext context)
         {
             _context = context;
         }
 
-        // GET: api/Asientoes
+        // GET: api/Asientos
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Asiento>>> GetAsiento()
+        public async Task<ActionResult<IEnumerable<Asiento>>> GetAsientos()
         {
-            return await _context.Asiento.ToListAsync();
+            return await _context.Asientos.ToListAsync();
         }
 
-        // GET: api/Asientoes/5
+        // GET: api/Asientos/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Asiento>> GetAsiento(int id)
         {
-            var asiento = await _context.Asiento.FindAsync(id);
+            var asiento = await _context.Asientos.FindAsync(id);
 
             if (asiento == null)
             {
@@ -41,7 +41,7 @@ namespace WSContabilidad.Controllers
             return asiento;
         }
 
-        // PUT: api/Asientoes/5
+        // PUT: api/Asientos/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAsiento(int id, Asiento asiento)
@@ -72,28 +72,28 @@ namespace WSContabilidad.Controllers
             return NoContent();
         }
 
-        // POST: api/Asientoes
+        // POST: api/Asientos
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Asiento>> PostAsiento(Asiento asiento)
         {
-            _context.Asiento.Add(asiento);
+            _context.Asientos.Add(asiento);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetAsiento", new { id = asiento.id }, asiento);
         }
 
-        // DELETE: api/Asientoes/5
+        // DELETE: api/Asientos/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsiento(int id)
         {
-            var asiento = await _context.Asiento.FindAsync(id);
+            var asiento = await _context.Asientos.FindAsync(id);
             if (asiento == null)
             {
                 return NotFound();
             }
 
-            _context.Asiento.Remove(asiento);
+            _context.Asientos.Remove(asiento);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -101,7 +101,7 @@ namespace WSContabilidad.Controllers
 
         private bool AsientoExists(int id)
         {
-            return _context.Asiento.Any(e => e.id == id);
+            return _context.Asientos.Any(e => e.id == id);
         }
     }
 }

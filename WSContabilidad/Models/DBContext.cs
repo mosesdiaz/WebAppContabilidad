@@ -19,11 +19,9 @@ namespace WSContabilidad.Models
         public DbSet<Monedas> Monedas { get; set; }
         public DbSet<TipoMovimiento> TipoMovimiento { get; set; }
         public DbSet<TipoCuenta> TiposCuenta { get; set; }
+        public DbSet<Asiento> Asientos { get; set; }
 
         public DbSet<TodoItem> TodoItems { get; set; }
-
-        public DbSet<WSContabilidad.Models.Asiento> Asiento { get; set; }
-
     }
 
 }
