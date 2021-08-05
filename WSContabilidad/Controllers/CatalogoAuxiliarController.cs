@@ -11,23 +11,23 @@ namespace WSContabilidad.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CatalogoAuxiliarsController : ControllerBase
+    public class CatalogoAuxiliarController : ControllerBase
     {
         private readonly TodoContext _context;
 
-        public CatalogoAuxiliarsController(TodoContext context)
+        public CatalogoAuxiliarController(TodoContext context)
         {
             _context = context;
         }
 
-        // GET: api/CatalogoAuxiliars
+        // GET: api/CatalogoAuxiliar
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CatalogoAuxiliar>>> GetCatalogoAuxiliares()
         {
             return await _context.CatalogoAuxiliares.ToListAsync();
         }
 
-        // GET: api/CatalogoAuxiliars/5
+        // GET: api/CatalogoAuxiliar/5
         [HttpGet("{id}")]
         public async Task<ActionResult<CatalogoAuxiliar>> GetCatalogoAuxiliar(int id)
         {
@@ -41,7 +41,7 @@ namespace WSContabilidad.Controllers
             return catalogoAuxiliar;
         }
 
-        // PUT: api/CatalogoAuxiliars/5
+        // PUT: api/CatalogoAuxiliar/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCatalogoAuxiliar(int id, CatalogoAuxiliar catalogoAuxiliar)
@@ -72,7 +72,7 @@ namespace WSContabilidad.Controllers
             return NoContent();
         }
 
-        // POST: api/CatalogoAuxiliars
+        // POST: api/CatalogoAuxiliar
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<CatalogoAuxiliar>> PostCatalogoAuxiliar(CatalogoAuxiliar catalogoAuxiliar)
@@ -83,7 +83,7 @@ namespace WSContabilidad.Controllers
             return CreatedAtAction("GetCatalogoAuxiliar", new { id = catalogoAuxiliar.id }, catalogoAuxiliar);
         }
 
-        // DELETE: api/CatalogoAuxiliars/5
+        // DELETE: api/CatalogoAuxiliar/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCatalogoAuxiliar(int id)
         {

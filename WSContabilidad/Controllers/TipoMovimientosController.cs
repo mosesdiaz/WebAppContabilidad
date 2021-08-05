@@ -11,27 +11,27 @@ namespace WSContabilidad.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TipoMovimientoesController : ControllerBase
+    public class TipoMovimientosController : ControllerBase
     {
         private readonly TodoContext _context;
 
-        public TipoMovimientoesController(TodoContext context)
+        public TipoMovimientosController(TodoContext context)
         {
             _context = context;
         }
 
-        // GET: api/TipoMovimientoes
+        // GET: api/TipoMovimientos
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TipoMovimiento>>> GetTipoMovimiento()
         {
             return await _context.TipoMovimiento.ToListAsync();
         }
 
-        // GET: api/TipoMovimientoes/5
-        [HttpGet("{TipoMovimientoId}")]
-        public async Task<ActionResult<TipoMovimiento>> GetTipoMovimiento(int TipoMovimientoId)
+        // GET: api/TipoMovimientos/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<TipoMovimiento>> GetTipoMovimiento(int id)
         {
-            var tipoMovimiento = await _context.TipoMovimiento.FindAsync(TipoMovimientoId);
+            var tipoMovimiento = await _context.TipoMovimiento.FindAsync(id);
 
             if (tipoMovimiento == null)
             {
@@ -41,12 +41,12 @@ namespace WSContabilidad.Controllers
             return tipoMovimiento;
         }
 
-        // PUT: api/TipoMovimientoes/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkTipoMovimientoId=2123754
-        [HttpPut("{TipoMovimientoId}")]
-        public async Task<IActionResult> PutTipoMovimiento(int TipoMovimientoId, TipoMovimiento tipoMovimiento)
+        // PUT: api/TipoMovimientos/5
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutTipoMovimiento(int id, TipoMovimiento tipoMovimiento)
         {
-            if (TipoMovimientoId != tipoMovimiento.TipoMovimientoId)
+            if (id != tipoMovimiento.TipoMovimientoId)
             {
                 return BadRequest();
             }
@@ -59,7 +59,7 @@ namespace WSContabilidad.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TipoMovimientoExists(TipoMovimientoId))
+                if (!TipoMovimientoExists(id))
                 {
                     return NotFound();
                 }
@@ -72,22 +72,22 @@ namespace WSContabilidad.Controllers
             return NoContent();
         }
 
-        // POST: api/TipoMovimientoes
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkTipoMovimientoId=2123754
+        // POST: api/TipoMovimientos
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<TipoMovimiento>> PostTipoMovimiento(TipoMovimiento tipoMovimiento)
         {
             _context.TipoMovimiento.Add(tipoMovimiento);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetTipoMovimiento", new { TipoMovimientoId = tipoMovimiento.TipoMovimientoId }, tipoMovimiento);
+            return CreatedAtAction("GetTipoMovimiento", new { id = tipoMovimiento.TipoMovimientoId }, tipoMovimiento);
         }
 
-        // DELETE: api/TipoMovimientoes/5
-        [HttpDelete("{TipoMovimientoId}")]
-        public async Task<IActionResult> DeleteTipoMovimiento(int TipoMovimientoId)
+        // DELETE: api/TipoMovimientos/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteTipoMovimiento(int id)
         {
-            var tipoMovimiento = await _context.TipoMovimiento.FindAsync(TipoMovimientoId);
+            var tipoMovimiento = await _context.TipoMovimiento.FindAsync(id);
             if (tipoMovimiento == null)
             {
                 return NotFound();
@@ -99,9 +99,9 @@ namespace WSContabilidad.Controllers
             return NoContent();
         }
 
-        private bool TipoMovimientoExists(int TipoMovimientoId)
+        private bool TipoMovimientoExists(int id)
         {
-            return _context.TipoMovimiento.Any(e => e.TipoMovimientoId == TipoMovimientoId);
+            return _context.TipoMovimiento.Any(e => e.TipoMovimientoId == id);
         }
     }
 }

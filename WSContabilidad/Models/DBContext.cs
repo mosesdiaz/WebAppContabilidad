@@ -21,7 +21,6 @@ namespace WSContabilidad.Models
         public DbSet<TipoCuenta> TiposCuenta { get; set; }
         public DbSet<Asiento> Asientos { get; set; }
 
-        public DbSet<TodoItem> TodoItems { get; set; }
     }
 
 }
