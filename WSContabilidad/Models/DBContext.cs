@@ -20,6 +20,7 @@ namespace WSContabilidad.Models
         public DbSet<TipoMovimiento> TipoMovimiento { get; set; }
         public DbSet<TipoCuenta> TiposCuenta { get; set; }
         public DbSet<Asiento> Asientos { get; set; }
+        public DbSet<TransaccionesAsientos> TransaccionesAsientos { get; set; }
 
     }
 

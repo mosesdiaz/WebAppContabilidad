@@ -24,7 +24,20 @@ namespace WSContabilidad.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Asiento>>> GetAsientos()
         {
-            return await _context.Asientos.ToListAsync();
+            var asientosList = from asiento in _context.Asientos
+                               select new
+                               {
+                                   asiento.id,
+                                   asiento.Descripcion,
+                                   asiento.CatalogoAuxiliarId,
+                                   asiento.Fecha,
+                                   asiento.Estado,
+                                   asiento.MonedasId,
+                                   asiento.TasaCambio,
+                                   asiento.Transacciones
+                               };
+            //return await _context.Asientos.ToListAsync();
+            return Ok(asientosList);
         }
 
         // GET: api/Asientos/5

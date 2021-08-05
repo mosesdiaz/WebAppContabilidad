@@ -12,6 +12,6 @@ namespace WSContabilidad.Models
         public string Codigo { get; set; }
         public double Tasa { get; set; }
 
-        //public ICollection<Asiento> Asientos { get; set; }
+        public List<Asiento> Asiento { get; set; }
     }
 }

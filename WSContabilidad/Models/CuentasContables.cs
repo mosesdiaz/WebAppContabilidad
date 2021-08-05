@@ -12,8 +12,9 @@ namespace WSContabilidad.Models
         public bool PermiteMovimiento { get; set; }
         public int Tipo { get; set; }
         public int Balance { get; set; }
-        public int? CtaMayor { get; set; }
+        public int? CuentaMayor { get; set; }
         //public CuentasContables CuentaContable { get; set; }
-        //public ICollection<CuentasContables> Cuentas { get; set; }
+        //public List<CuentasContables> CuentasContable { get; set; }
+        //public List<TransaccionesAsientos> Transacciones { get; set; }
     }
 }

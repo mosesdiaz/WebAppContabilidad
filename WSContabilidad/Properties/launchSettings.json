@@ -12,7 +12,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "api/CuentasContables",
+      "launchUrl": "api/Asientos",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
