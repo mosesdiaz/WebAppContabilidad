@@ -31,14 +31,15 @@ namespace WSContabilidad
 
             services.AddControllers();
 
-            /*           services.AddDbContext<TodoContext>(opt =>
-                                                                      opt.UseInMemoryDatabase("TodoList"));*/
-            services.AddDbContext<TodoContext>(opt => opt.UseSqlServer("Server=tcp:contabilidadopensource.database.windows.net,1433;Initial Catalog=Contabilidad;Persist Security Info=False;User ID=admin-cont;Password=Pa$$word.;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"));
 
-            /*            services.AddSwaggerGen(c =>
-                        {
-                            c.SwaggerDoc("v1", new OpenApiInfo { Title = "ContabilidadEntity", Version = "v1" });
-                        });*/
+             services.AddDbContext<TodoContext>(opt => opt.UseSqlServer("Server=tcp:contabilidadopensource.database.windows.net,1433;Initial Catalog=Contabilidad;Persist Security Info=False;User ID=admin-cont;Password=Pa$$word.;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"));
+            //services.AddDbContext<TodoContext>(opt => opt.UseSqlServer("connectionId"));
+
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ContabilidadEntity", Version = "v1" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,8 +48,8 @@ namespace WSContabilidad
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                // app.UseSwagger();
-                // app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ContabilidadEntity v1"));
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ContabilidadEntity v1"));
             }
 
             app.UseHttpsRedirection();
