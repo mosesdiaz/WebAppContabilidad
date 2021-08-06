@@ -119,7 +119,7 @@ namespace WSContabilidad.Controllers
                                    Transacciones=asientopost.Transacciones
                                };*/
 
-            
+            asiento.Estado = "R";
             asiento.TasaCambio = _context.Monedas.Where(x => x.id == asiento.MonedasId)
                                 .Select(x => x.Tasa).FirstOrDefault();
 
