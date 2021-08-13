@@ -14,11 +14,9 @@ namespace WebAppContabilidad.Data
         {
         }
 
-        public DbSet<WebAppContabilidad.Models.TipoDeMoneda> TipoDeMoneda { get; set; }
-
-        public DbSet<WebAppContabilidad.Models.TipoDeCuenta> TipoDeCuenta { get; set; }
-
-        public DbSet<WebAppContabilidad.Models.SistemaAuxiliar> SistemaAuxiliar { get; set; }
-        public DbSet<WebAppContabilidad.Models.CuentaContable> CuentaContable { get; set; }
+        public DbSet<TipoDeMoneda> Monedas { get; set; }
+        public DbSet<SistemaAuxiliar> CatalogoAuxiliares { get; set; }
+        public DbSet<CuentaContable> CuentasContables { get; set; }
+        public DbSet<TiposCuenta> TiposCuenta { get; set; }
     }
 }

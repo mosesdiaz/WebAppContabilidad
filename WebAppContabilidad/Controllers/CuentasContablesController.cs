@@ -22,7 +22,7 @@ namespace WebAppContabilidad.Controllers
         // GET: CuentasContables
         public async Task<IActionResult> Index()
         {
-            var webAppContabilidadDbContext = _context.CuentaContable.Include(c => c.CuentaMayorNavigation).Include(c => c.TipoDeCuentaNavigation);
+            var webAppContabilidadDbContext = _context.CuentasContables.Include(c => c.CuentaContables).Include(c => c.TiposCuenta);
             return View(await webAppContabilidadDbContext.ToListAsync());
         }
 
@@ -34,9 +34,9 @@ namespace WebAppContabilidad.Controllers
                 return NotFound();
             }
 
-            var cuentaContable = await _context.CuentaContable
-                .Include(c => c.CuentaMayorNavigation)
-                .Include(c => c.TipoDeCuentaNavigation)
+            var cuentaContable = await _context.CuentasContables
+                .Include(c => c.CuentaContables)
+                .Include(c => c.TiposCuenta)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (cuentaContable == null)
             {
@@ -49,8 +49,8 @@ namespace WebAppContabilidad.Controllers
         // GET: CuentasContables/Create
         public IActionResult Create()
         {
-            ViewData["CuentaMayor"] = new SelectList(_context.CuentaContable, "Id", "Descripcion");
-            ViewData["TipoDeCuenta"] = new SelectList(_context.TipoDeCuenta, "Id", "Descripcion");
+            ViewData["CuentaMayor"] = new SelectList(_context.CuentasContables, "Id", "Descripcion");
+            ViewData["Tipo"] = new SelectList(_context.TiposCuenta, "id", "Descripcion");
             return View();
         }
 
@@ -59,16 +59,17 @@ namespace WebAppContabilidad.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Descripcion,TipoDeCuenta,PermiteTransacciones,CuentaMayor,Balance,Estado")] CuentaContable cuentaContable)
+        public async Task<IActionResult> Create([Bind("Id,Descripcion,Tipo,PermiteMovimiento,CuentaMayor,Balance,Estado")] CuentaContable cuentaContable)
         {
             if (ModelState.IsValid)
             {
+                cuentaContable.Estado = true;
                 _context.Add(cuentaContable);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CuentaMayor"] = new SelectList(_context.CuentaContable, "Id", "Id", cuentaContable.CuentaMayor);
-            ViewData["TipoDeCuenta"] = new SelectList(_context.TipoDeCuenta, "Id", "Id", cuentaContable.TipoDeCuenta);
+            ViewData["CuentaMayor"] = new SelectList(_context.CuentasContables, "Id", "Descripcion", cuentaContable.CuentaMayor);
+            ViewData["Tipo"] = new SelectList(_context.TiposCuenta, "id", "Descripcion", cuentaContable.Tipo);
             return View(cuentaContable);
         }
 
@@ -80,13 +81,13 @@ namespace WebAppContabilidad.Controllers
                 return NotFound();
             }
 
-            var cuentaContable = await _context.CuentaContable.FindAsync(id);
+            var cuentaContable = await _context.CuentasContables.FindAsync(id);
             if (cuentaContable == null)
             {
                 return NotFound();
             }
-            ViewData["CuentaMayor"] = new SelectList(_context.CuentaContable, "Id", "Id", cuentaContable.CuentaMayor);
-            ViewData["TipoDeCuenta"] = new SelectList(_context.TipoDeCuenta, "Id", "Id", cuentaContable.TipoDeCuenta);
+            ViewData["CuentaMayor"] = new SelectList(_context.CuentasContables, "Id", "Descripcion", cuentaContable.CuentaMayor);
+            ViewData["Tipo"] = new SelectList(_context.TiposCuenta, "id", "Descripcion", cuentaContable.Tipo);
             return View(cuentaContable);
         }
 
@@ -95,7 +96,7 @@ namespace WebAppContabilidad.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Descripcion,TipoDeCuenta,PermiteTransacciones,CuentaMayor,Balance,Estado")] CuentaContable cuentaContable)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Descripcion,Tipo,PermiteMovimiento,CuentaMayor,Balance,Estado")] CuentaContable cuentaContable)
         {
             if (id != cuentaContable.Id)
             {
@@ -122,8 +123,8 @@ namespace WebAppContabilidad.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CuentaMayor"] = new SelectList(_context.CuentaContable, "Id", "Id", cuentaContable.CuentaMayor);
-            ViewData["TipoDeCuenta"] = new SelectList(_context.TipoDeCuenta, "Id", "Id", cuentaContable.TipoDeCuenta);
+            ViewData["CuentaMayor"] = new SelectList(_context.CuentasContables, "Id", "Descripcion", cuentaContable.CuentaMayor);
+            ViewData["Tipo"] = new SelectList(_context.TiposCuenta, "id", "Descripcion", cuentaContable.Tipo);
             return View(cuentaContable);
         }
 
@@ -135,9 +136,9 @@ namespace WebAppContabilidad.Controllers
                 return NotFound();
             }
 
-            var cuentaContable = await _context.CuentaContable
-                .Include(c => c.CuentaMayorNavigation)
-                .Include(c => c.TipoDeCuentaNavigation)
+            var cuentaContable = await _context.CuentasContables
+                .Include(c => c.CuentaContables)
+                .Include(c => c.TiposCuenta)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (cuentaContable == null)
             {
@@ -152,15 +153,15 @@ namespace WebAppContabilidad.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var cuentaContable = await _context.CuentaContable.FindAsync(id);
-            _context.CuentaContable.Remove(cuentaContable);
+            var cuentaContable = await _context.CuentasContables.FindAsync(id);
+            _context.CuentasContables.Remove(cuentaContable);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool CuentaContableExists(int id)
         {
-            return _context.CuentaContable.Any(e => e.Id == id);
+            return _context.CuentasContables.Any(e => e.Id == id);
         }
     }
 }

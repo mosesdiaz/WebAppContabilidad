@@ -11,8 +11,7 @@ namespace WebAppContabilidad.Models
         public int Id { get; set; }
         public string Descripcion { get; set; }
         public string Codigo { get; set; }
-        [Column(TypeName = "decimal(11, 2)")]
-        public decimal TasaDeCambio { get; set; }
+        public double Tasa { get; set; }
         public bool Estado { get; set; }
     }
 }

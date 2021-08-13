@@ -1,10 +1,10 @@
-﻿@model IEnumerable<WebAppContabilidad.Models.TipoDeCuenta>
+﻿@model IEnumerable<WebAppContabilidad.Models.TiposCuenta>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Tipos de Cuentas</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -16,10 +16,13 @@
                 @Html.DisplayNameFor(model => model.Descripcion)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Origen)
+                @Html.DisplayNameFor(model => model.id)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Estado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TipoMovimiento)
             </th>
             <th></th>
         </tr>
@@ -29,17 +32,20 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Descripcion)
-            </td>
+            </td> 
             <td>
-                @Html.DisplayFor(modelItem => item.Origen)
+                @Html.DisplayFor(modelItem => item.id)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Estado)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                @Html.DisplayFor(modelItem => item.TipoMovimiento.Descripcion)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
             </td>
         </tr>
 }
