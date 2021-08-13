@@ -44,14 +44,31 @@ namespace WSContabilidad.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Asiento>> GetAsiento(int id)
         {
-            var asiento = await _context.Asientos.FindAsync(id);
+            var asientosList = from asiento in _context.Asientos
+                               //where asiento.id =  id
 
-            if (asiento == null)
+                               select new
+                               {
+                                   asiento.id,
+                                   asiento.Descripcion,
+                                   asiento.CatalogoAuxiliarId,
+                                   asiento.Fecha,
+                                   asiento.Estado,
+                                   asiento.MonedasId,
+                                   asiento.TasaCambio,
+                                   asiento.Transacciones
+                               } ;
+            //return await _context.Asientos.ToListAsync();
+            //var asiento = await _context.Asientos.FindAsync(id);
+
+            if (asientosList == null)
             {
                 return NotFound();
             }
+            return Ok(asientosList.Where(x => x.id == id));
 
-            return asiento;
+            /*            return asiento;
+            */
         }
 
         // PUT: api/Asientos/5
@@ -90,6 +107,22 @@ namespace WSContabilidad.Controllers
         [HttpPost]
         public async Task<ActionResult<Asiento>> PostAsiento(Asiento asiento)
         {
+            /*Asiento asiento = new Asiento 
+                               {
+                                   id = asientopost.id,
+                                   Descripcion = asientopost.Descripcion,
+                                   CatalogoAuxiliarId=asientopost.CatalogoAuxiliarId,
+                                   Fecha=asientopost.Fecha,
+                                   Estado=asientopost.Estado,
+                                   MonedasId=asientopost.MonedasId,
+                                   TasaCambio=asientopost.TasaCambio,
+                                   Transacciones=asientopost.Transacciones
+                               };*/
+
+            asiento.Estado = "R";
+            asiento.TasaCambio = _context.Monedas.Where(x => x.id == asiento.MonedasId)
+                                .Select(x => x.Tasa).FirstOrDefault();
+
             _context.Asientos.Add(asiento);
             await _context.SaveChangesAsync();
 
