@@ -10,22 +10,23 @@ using WebAppContabilidad.Models;
 
 namespace WebAppContabilidad.Controllers
 {
-    public class TipoDeCuentasController : Controller
+    public class TiposCuentasController : Controller
     {
         private readonly WebAppContabilidadDbContext _context;
 
-        public TipoDeCuentasController(WebAppContabilidadDbContext context)
+        public TiposCuentasController(WebAppContabilidadDbContext context)
         {
             _context = context;
         }
 
-        // GET: TipoDeCuentas
+        // GET: TiposCuentas
         public async Task<IActionResult> Index()
         {
-            return View(await _context.TipoDeCuenta.ToListAsync());
+            var webAppContabilidadDbContext = _context.TiposCuenta.Include(t => t.TipoMovimiento);
+            return View(await webAppContabilidadDbContext.ToListAsync());
         }
 
-        // GET: TipoDeCuentas/Details/5
+        // GET: TiposCuentas/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +34,43 @@ namespace WebAppContabilidad.Controllers
                 return NotFound();
             }
 
-            var tipoDeCuenta = await _context.TipoDeCuenta
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (tipoDeCuenta == null)
+            var tiposCuenta = await _context.TiposCuenta
+                .Include(t => t.TipoMovimiento)
+                .FirstOrDefaultAsync(m => m.id == id);
+            if (tiposCuenta == null)
             {
                 return NotFound();
             }
 
-            return View(tipoDeCuenta);
+            return View(tiposCuenta);
         }
 
-        // GET: TipoDeCuentas/Create
+        // GET: TiposCuentas/Create
         public IActionResult Create()
         {
+            ViewData["TipoMovimientoId"] = new SelectList(_context.Set<TipoMovimiento>(), "TipoMovimientoId", "Descripcion");
             return View();
         }
 
-        // POST: TipoDeCuentas/Create
+        // POST: TiposCuentas/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Descripcion,Origen,Estado")] TipoDeCuenta tipoDeCuenta)
+        public async Task<IActionResult> Create([Bind("id,Descripcion,Estado,TipoMovimientoId")] TiposCuenta tiposCuenta)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(tipoDeCuenta);
+                tiposCuenta.Estado = true;
+                _context.Add(tiposCuenta);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(tipoDeCuenta);
+            ViewData["TipoMovimientoId"] = new SelectList(_context.Set<TipoMovimiento>(), "TipoMovimientoId", "Descripcion", tiposCuenta.TipoMovimientoId);
+            return View(tiposCuenta);
         }
 
-        // GET: TipoDeCuentas/Edit/5
+        // GET: TiposCuentas/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +78,23 @@ namespace WebAppContabilidad.Controllers
                 return NotFound();
             }
 
-            var tipoDeCuenta = await _context.TipoDeCuenta.FindAsync(id);
-            if (tipoDeCuenta == null)
+            var tiposCuenta = await _context.TiposCuenta.FindAsync(id);
+            if (tiposCuenta == null)
             {
                 return NotFound();
             }
-            return View(tipoDeCuenta);
+            ViewData["TipoMovimientoId"] = new SelectList(_context.Set<TipoMovimiento>(), "TipoMovimientoId", "Descripcion", tiposCuenta.TipoMovimientoId);
+            return View(tiposCuenta);
         }
 
-        // POST: TipoDeCuentas/Edit/5
+        // POST: TiposCuentas/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Descripcion,Origen,Estado")] TipoDeCuenta tipoDeCuenta)
+        public async Task<IActionResult> Edit(int id, [Bind("id,Descripcion,Estado,TipoMovimientoId")] TiposCuenta tiposCuenta)
         {
-            if (id != tipoDeCuenta.Id)
+            if (id != tiposCuenta.id)
             {
                 return NotFound();
             }
@@ -97,12 +103,12 @@ namespace WebAppContabilidad.Controllers
             {
                 try
                 {
-                    _context.Update(tipoDeCuenta);
+                    _context.Update(tiposCuenta);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TipoDeCuentaExists(tipoDeCuenta.Id))
+                    if (!TiposCuentaExists(tiposCuenta.id))
                     {
                         return NotFound();
                     }
@@ -113,10 +119,11 @@ namespace WebAppContabilidad.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(tipoDeCuenta);
+            ViewData["TipoMovimientoId"] = new SelectList(_context.Set<TipoMovimiento>(), "TipoMovimientoId", "TipoMovimientoId", tiposCuenta.TipoMovimientoId);
+            return View(tiposCuenta);
         }
 
-        // GET: TipoDeCuentas/Delete/5
+        // GET: TiposCuentas/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,30 +131,31 @@ namespace WebAppContabilidad.Controllers
                 return NotFound();
             }
 
-            var tipoDeCuenta = await _context.TipoDeCuenta
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (tipoDeCuenta == null)
+            var tiposCuenta = await _context.TiposCuenta
+                .Include(t => t.TipoMovimiento)
+                .FirstOrDefaultAsync(m => m.id == id);
+            if (tiposCuenta == null)
             {
                 return NotFound();
             }
 
-            return View(tipoDeCuenta);
+            return View(tiposCuenta);
         }
 
-        // POST: TipoDeCuentas/Delete/5
+        // POST: TiposCuentas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var tipoDeCuenta = await _context.TipoDeCuenta.FindAsync(id);
-            _context.TipoDeCuenta.Remove(tipoDeCuenta);
+            var tiposCuenta = await _context.TiposCuenta.FindAsync(id);
+            _context.TiposCuenta.Remove(tiposCuenta);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool TipoDeCuentaExists(int id)
+        private bool TiposCuentaExists(int id)
         {
-            return _context.TipoDeCuenta.Any(e => e.Id == id);
+            return _context.TiposCuenta.Any(e => e.id == id);
         }
     }
 }

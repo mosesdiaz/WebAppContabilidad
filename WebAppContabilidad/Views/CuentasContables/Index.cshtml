@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Cuentas Contables</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -13,10 +13,13 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Descripcion)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PermiteTransacciones)
+                @Html.DisplayNameFor(model => model.PermiteMovimiento)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Balance)
@@ -25,10 +28,10 @@
                 @Html.DisplayNameFor(model => model.Estado)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CuentaMayorNavigation)
+                @Html.DisplayName("Cuenta Mayor")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TipoDeCuentaNavigation)
+                @Html.DisplayName("Tipo de cuenta")
             </th>
             <th></th>
         </tr>
@@ -37,10 +40,13 @@
 @foreach (var item in Model) {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Descripcion)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PermiteTransacciones)
+                @Html.DisplayFor(modelItem => item.PermiteMovimiento)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Balance)
@@ -49,10 +55,10 @@
                 @Html.DisplayFor(modelItem => item.Estado)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CuentaMayorNavigation.Id)
+                @Html.DisplayFor(modelItem => item.CuentaContables.Descripcion)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TipoDeCuentaNavigation.Id)
+                @Html.DisplayFor(modelItem => item.TiposCuenta.Descripcion)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

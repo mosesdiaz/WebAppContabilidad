@@ -6,7 +6,7 @@
 
 <h1>Create</h1>
 
-<h4>TipoDeMoneda</h4>
+<h4>Monedas</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -23,15 +23,15 @@
                 <span asp-validation-for="Codigo" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="TasaDeCambio" class="control-label"></label>
-                <input asp-for="TasaDeCambio" class="form-control" />
-                <span asp-validation-for="TasaDeCambio" class="text-danger"></span>
+                <label asp-for="Tasa" class="control-label"></label>
+                <input asp-for="Tasa" class="form-control" />
+                <span asp-validation-for="Tasa" class="text-danger"></span>
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Estado" /> @Html.DisplayNameFor(model => model.Estado)
-                </label>
-            </div>
+            @*<div class="form-group form-check">
+            <label class="form-check-label">
+                <input class="form-check-input" asp-for="Estado" /> @Html.DisplayNameFor(model => model.Estado)
+            </label>
+        </div>*@
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

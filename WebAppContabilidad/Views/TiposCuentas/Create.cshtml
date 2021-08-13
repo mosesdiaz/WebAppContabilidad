@@ -1,4 +1,4 @@
-﻿@model WebAppContabilidad.Models.TipoDeCuenta
+﻿@model WebAppContabilidad.Models.TiposCuenta
 
 @{
     ViewData["Title"] = "Create";
@@ -6,7 +6,7 @@
 
 <h1>Create</h1>
 
-<h4>TipoDeCuenta</h4>
+<h4>TiposCuenta</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -17,18 +17,14 @@
                 <input asp-for="Descripcion" class="form-control" />
                 <span asp-validation-for="Descripcion" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Origen" class="control-label"></label>
-                @*<select asp-for="Origen" class="form-control"></select>*@
-                @Html.DropDownList("Origen",
-                    Html.GetEnumSelectList<Origen>(),
-                    "Selecccione el origen", new { @class = "form-control" })
-                <span asp-validation-for="Origen" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
+            @*<div class="form-group form-check">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="Estado" /> @Html.DisplayNameFor(model => model.Estado)
                 </label>
+            </div>*@
+            <div class="form-group">
+                <label asp-for="TipoMovimientoId" class="control-label"></label>
+                <select asp-for="TipoMovimientoId" class ="form-control" asp-items="ViewBag.TipoMovimientoId"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

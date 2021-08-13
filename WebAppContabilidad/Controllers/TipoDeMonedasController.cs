@@ -22,7 +22,7 @@ namespace WebAppContabilidad.Controllers
         // GET: TipoDeMonedas
         public async Task<IActionResult> Index()
         {
-            return View(await _context.TipoDeMoneda.ToListAsync());
+            return View(await _context.Monedas.ToListAsync());
         }
 
         // GET: TipoDeMonedas/Details/5
@@ -33,7 +33,7 @@ namespace WebAppContabilidad.Controllers
                 return NotFound();
             }
 
-            var tipoDeMoneda = await _context.TipoDeMoneda
+            var tipoDeMoneda = await _context.Monedas
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (tipoDeMoneda == null)
             {
@@ -54,10 +54,11 @@ namespace WebAppContabilidad.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Descripcion,Codigo,TasaDeCambio,Estado")] TipoDeMoneda tipoDeMoneda)
+        public async Task<IActionResult> Create([Bind("Id,Descripcion,Codigo,Tasa,Estado")] TipoDeMoneda tipoDeMoneda)
         {
             if (ModelState.IsValid)
             {
+                tipoDeMoneda.Estado = true;
                 _context.Add(tipoDeMoneda);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -73,7 +74,7 @@ namespace WebAppContabilidad.Controllers
                 return NotFound();
             }
 
-            var tipoDeMoneda = await _context.TipoDeMoneda.FindAsync(id);
+            var tipoDeMoneda = await _context.Monedas.FindAsync(id);
             if (tipoDeMoneda == null)
             {
                 return NotFound();
@@ -86,7 +87,7 @@ namespace WebAppContabilidad.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Descripcion,Codigo,TasaDeCambio,Estado")] TipoDeMoneda tipoDeMoneda)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Descripcion,Codigo,Tasa,Estado")] TipoDeMoneda tipoDeMoneda)
         {
             if (id != tipoDeMoneda.Id)
             {
@@ -124,7 +125,7 @@ namespace WebAppContabilidad.Controllers
                 return NotFound();
             }
 
-            var tipoDeMoneda = await _context.TipoDeMoneda
+            var tipoDeMoneda = await _context.Monedas
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (tipoDeMoneda == null)
             {
@@ -139,15 +140,15 @@ namespace WebAppContabilidad.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var tipoDeMoneda = await _context.TipoDeMoneda.FindAsync(id);
-            _context.TipoDeMoneda.Remove(tipoDeMoneda);
+            var tipoDeMoneda = await _context.Monedas.FindAsync(id);
+            _context.Monedas.Remove(tipoDeMoneda);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool TipoDeMonedaExists(int id)
         {
-            return _context.TipoDeMoneda.Any(e => e.Id == id);
+            return _context.Monedas.Any(e => e.Id == id);
         }
     }
 }

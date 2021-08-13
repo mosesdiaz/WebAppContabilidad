@@ -22,7 +22,7 @@ namespace WebAppContabilidad.Controllers
         // GET: SistemasAuxiliares
         public async Task<IActionResult> Index()
         {
-            return View(await _context.SistemaAuxiliar.ToListAsync());
+            return View(await _context.CatalogoAuxiliares.ToListAsync());
         }
 
         // GET: SistemasAuxiliares/Details/5
@@ -33,7 +33,7 @@ namespace WebAppContabilidad.Controllers
                 return NotFound();
             }
 
-            var sistemaAuxiliar = await _context.SistemaAuxiliar
+            var sistemaAuxiliar = await _context.CatalogoAuxiliares
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (sistemaAuxiliar == null)
             {
@@ -54,10 +54,11 @@ namespace WebAppContabilidad.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nombre,Estado")] SistemaAuxiliar sistemaAuxiliar)
+        public async Task<IActionResult> Create([Bind("Id,Descripcion,Estado")] SistemaAuxiliar sistemaAuxiliar)
         {
             if (ModelState.IsValid)
             {
+                sistemaAuxiliar.Estado = true;
                 _context.Add(sistemaAuxiliar);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -73,7 +74,7 @@ namespace WebAppContabilidad.Controllers
                 return NotFound();
             }
 
-            var sistemaAuxiliar = await _context.SistemaAuxiliar.FindAsync(id);
+            var sistemaAuxiliar = await _context.CatalogoAuxiliares.FindAsync(id);
             if (sistemaAuxiliar == null)
             {
                 return NotFound();
@@ -86,7 +87,7 @@ namespace WebAppContabilidad.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Estado")] SistemaAuxiliar sistemaAuxiliar)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Descripcion,Estado")] SistemaAuxiliar sistemaAuxiliar)
         {
             if (id != sistemaAuxiliar.Id)
             {
@@ -124,7 +125,7 @@ namespace WebAppContabilidad.Controllers
                 return NotFound();
             }
 
-            var sistemaAuxiliar = await _context.SistemaAuxiliar
+            var sistemaAuxiliar = await _context.CatalogoAuxiliares
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (sistemaAuxiliar == null)
             {
@@ -139,15 +140,15 @@ namespace WebAppContabilidad.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var sistemaAuxiliar = await _context.SistemaAuxiliar.FindAsync(id);
-            _context.SistemaAuxiliar.Remove(sistemaAuxiliar);
+            var sistemaAuxiliar = await _context.CatalogoAuxiliares.FindAsync(id);
+            _context.CatalogoAuxiliares.Remove(sistemaAuxiliar);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool SistemaAuxiliarExists(int id)
         {
-            return _context.SistemaAuxiliar.Any(e => e.Id == id);
+            return _context.CatalogoAuxiliares.Any(e => e.Id == id);
         }
     }
 }

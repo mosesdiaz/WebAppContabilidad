@@ -11,7 +11,7 @@ namespace WSContabilidad.Models
         public string Descripcion { get; set; }
         public bool PermiteMovimiento { get; set; }
         public int Tipo { get; set; }
-        public int Balance { get; set; }
+        public double Balance { get; set; }
         public int? CuentaMayor { get; set; }
 
         public bool Estado { get; set; }
