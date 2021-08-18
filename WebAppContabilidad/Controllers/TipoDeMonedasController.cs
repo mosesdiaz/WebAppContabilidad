@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using WebAppContabilidad.Data;
 using WebAppContabilidad.Models;
 
@@ -144,6 +146,57 @@ namespace WebAppContabilidad.Controllers
             _context.Monedas.Remove(tipoDeMoneda);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> UpdateCurrency()
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://45.63.105.164:1337/exchange-rates/rates_by/DOP");
+                //HTTP GET
+                var responseTask = client.GetAsync("");
+                responseTask.Wait();
+
+                var result = responseTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    var readTask = result.Content.ReadAsStringAsync();
+
+                    readTask.Wait();
+                    var data = JsonConvert.DeserializeObject<dynamic>(readTask.Result);
+                    Dictionary<string, double> dic = data.rates.ToObject<Dictionary<string, double>>();
+                    foreach (KeyValuePair<string, double> currency in dic)
+                    {
+                        //currency is already added
+                        if (_context.Monedas.Any(e => e.Codigo == currency.Key))
+                        {
+                            //var tipoDeMoneda = await _context.Monedas.Where(e => e.Codigo == currency.Key).ToListAsync();
+                            TipoDeMoneda tipoDeMoneda = await _context.Monedas.FirstAsync(e => e.Codigo == currency.Key);
+                            tipoDeMoneda.Tasa = currency.Value;
+                            _context.Update(tipoDeMoneda);
+                            await _context.SaveChangesAsync();
+                        }
+                        else
+                        {
+                            //last inserted id
+                            //TipoDeMoneda ultimaMoneda = await _context.Monedas.LastAsync();
+                            int ultimoId = _context.Monedas.Max(p => p.Id);
+
+                            TipoDeMoneda nuevoTipoDeMoneda = new TipoDeMoneda()
+                            {
+                                Id = ultimoId + 1,
+                                Descripcion = currency.Key,
+                                Codigo = currency.Key,
+                                Tasa = currency.Value,
+                                Estado = true
+                            };
+                            _context.Add(nuevoTipoDeMoneda);
+                            await _context.SaveChangesAsync();
+                        }
+                    }
+                }
+            }
+            return View("Index", await _context.Monedas.ToListAsync());
         }
 
         private bool TipoDeMonedaExists(int id)
