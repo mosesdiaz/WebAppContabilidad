@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using WebAppContabilidad.Data;
+using WSContabilidad.Models;
 
 namespace WebAppContabilidad
 {
@@ -29,6 +30,7 @@ namespace WebAppContabilidad
 
             services.AddDbContext<WebAppContabilidadDbContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("WebAppContabilidadDbContext")));
+            services.AddDbContext<TodoContext>(opt => opt.UseSqlServer("Server=tcp:contabilidadopensource.database.windows.net,1433;Initial Catalog=Contabilidad;Persist Security Info=False;User ID=admin-cont;Password=Pa$$word.;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
