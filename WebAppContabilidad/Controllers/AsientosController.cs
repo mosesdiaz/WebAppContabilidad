@@ -22,7 +22,7 @@ namespace WebAppContabilidad.Controllers
         // GET: Asientos
         public async Task<IActionResult> Index()
         {
-            var webAppContabilidadDbContext = _context.Asientos.Include(a => a.CatalogoAuxiliar).Include(a => a.Monedas);
+            var webAppContabilidadDbContext = _context.Asientos.OrderByDescending(a => a.id).Include(a => a.CatalogoAuxiliar).Include(a => a.Monedas);
             return View(await webAppContabilidadDbContext.ToListAsync());
         }
 
@@ -58,7 +58,8 @@ namespace WebAppContabilidad.Controllers
                  .Include(a => a.CatalogoAuxiliar)
                  .Include(a => a.Monedas)
                  .Include(a => a.Transacciones)
-                 .FirstOrDefaultAsync(m => m.id == id);
+                 .FirstOrDefaultAsync(m => m.id == id)
+                ;
             if (asiento == null)
             {
                 return NotFound();
