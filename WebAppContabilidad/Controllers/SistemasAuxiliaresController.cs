@@ -56,8 +56,12 @@ namespace WebAppContabilidad.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Descripcion,Estado")] SistemaAuxiliar sistemaAuxiliar)
         {
+
+            int ultimoId = _context.CatalogoAuxiliares.Max(p => p.Id);
+
             if (ModelState.IsValid)
             {
+                sistemaAuxiliar.Id = ultimoId + 1;
                 sistemaAuxiliar.Estado = true;
                 _context.Add(sistemaAuxiliar);
                 await _context.SaveChangesAsync();
@@ -89,6 +93,7 @@ namespace WebAppContabilidad.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Descripcion,Estado")] SistemaAuxiliar sistemaAuxiliar)
         {
+
             if (id != sistemaAuxiliar.Id)
             {
                 return NotFound();
