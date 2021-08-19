@@ -1,0 +1,73 @@
+﻿@model WebAppContabilidad.Models.Asiento
+
+@*@model IEnumerable<WebAppContabilidad.Models.Asiento>
+*@
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Asiento</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Descripcion)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Fecha)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Fecha)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Monedas)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Monedas.Descripcion)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TasaCambio)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TasaCambio)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CatalogoAuxiliar)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CatalogoAuxiliar.Descripcion)
+        </dd>
+        @* @foreach (var item in Model.Transacciones)
+        {
+            @*<dt class="col-sm-2">
+                @Html.DisplayName("Cuenta Contable")
+            </dt>
+            <dd class="col-sm-10">
+                @item.CuentasContablesId
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayName("Tipo de Movimiento")
+            </dt>
+            <dd class="col-sm-10">
+                @item.TipoMovimiento.Descripcion
+            </dd>
+        <dt class="col-sm-2">
+            Monto
+        </dt>
+        <dd class="col-sm-10">
+            @item.Monto
+
+        </dd>
+        }*@
+    </dl>
+
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

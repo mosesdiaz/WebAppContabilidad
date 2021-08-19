@@ -130,7 +130,7 @@ namespace WSContabilidad.Controllers
         }
 
         // DELETE: api/Asientos/5
-        [HttpDelete("{id}")]
+/*        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsiento(int id)
         {
             var asiento = await _context.Asientos.FindAsync(id);
@@ -143,7 +143,7 @@ namespace WSContabilidad.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
-        }
+        }*/
 
         private bool AsientoExists(int id)
         {

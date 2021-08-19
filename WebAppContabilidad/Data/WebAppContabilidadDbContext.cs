@@ -18,5 +18,8 @@ namespace WebAppContabilidad.Data
         public DbSet<SistemaAuxiliar> CatalogoAuxiliares { get; set; }
         public DbSet<CuentaContable> CuentasContables { get; set; }
         public DbSet<TiposCuenta> TiposCuenta { get; set; }
+        public DbSet<TipoMovimiento> TipoMovimiento { get; set; }
+        public DbSet<Asiento> Asientos { get; set; }
+        public DbSet<TransaccionesAsientos> TransaccionesAsientos { get; set; }
     }
 }

@@ -26,6 +26,7 @@ namespace WebAppContabilidad.Models
         public CuentaContable CuentaContables { get; set; }
         [ForeignKey("Tipo")]
         public TiposCuenta TiposCuenta { get; set; }
+        public ICollection<TransaccionesAsientos> Transacciones { get; set; }
 
 
         /*  [ForeignKey(nameof(CuentaMayor))]
