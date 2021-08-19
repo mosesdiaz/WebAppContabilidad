@@ -16,9 +16,9 @@ namespace WebAppContabilidad.Models
         public double Monto { get; set; }
         public int AsientoId { get; set; }
 
-        //[ForeignKey("CuentasContablesId")]
-        public virtual CuentaContable CuentaContable{ get; set; }
-        //[ForeignKey("TipoMovimientoId")]
-        public virtual TipoMovimiento TipoMovimiento { get; set; }
+        [ForeignKey("CuentasContablesId")]
+        public CuentaContable CuentaContable{ get; set; }
+        [ForeignKey("TipoMovimientoId")]
+        public TipoMovimiento TipoMovimiento { get; set; }
     }
 }

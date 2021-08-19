@@ -11,7 +11,7 @@ namespace WebAppContabilidad.Models
         [Key]
         public int  TipoMovimientoId { get; set; }
         public string  Descripcion { get; set; }
-        public ICollection<TransaccionesAsientos> Transacciones { get; set; }
+        public List<TransaccionesAsientos> Transacciones { get; set; }
 
     }
 }
