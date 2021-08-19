@@ -42,19 +42,21 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.CatalogoAuxiliar.Descripcion)
         </dd>
-        @* @foreach (var item in Model.Transacciones)
+         @foreach (var item in Model.Transacciones)
         {
-            @*<dt class="col-sm-2">
+            <dt class="col-sm-2">
                 @Html.DisplayName("Cuenta Contable")
             </dt>
             <dd class="col-sm-10">
+                @*@item.CuentaContable.Descripcion*@
                 @item.CuentasContablesId
             </dd>
             <dt class="col-sm-2">
                 @Html.DisplayName("Tipo de Movimiento")
             </dt>
             <dd class="col-sm-10">
-                @item.TipoMovimiento.Descripcion
+               @* @item.TipoMovimiento.Descripcion*@
+                @item.TipoMovimientoId
             </dd>
         <dt class="col-sm-2">
             Monto
@@ -63,7 +65,7 @@
             @item.Monto
 
         </dd>
-        }*@
+        }
     </dl>
 
 </div>

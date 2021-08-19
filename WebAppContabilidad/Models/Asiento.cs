@@ -20,5 +20,8 @@ namespace WebAppContabilidad.Models
         public SistemaAuxiliar CatalogoAuxiliar { get; set; }
         public TipoDeMoneda Monedas { get; set; }
         public List<TransaccionesAsientos> Transacciones { get; set; }
+
+        /*public CuentaContable CuentaContable { get; set; }
+        public TipoMovimiento TipoMovimiento { get; set; }*/
     }
 }

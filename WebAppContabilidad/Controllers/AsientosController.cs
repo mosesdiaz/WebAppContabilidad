@@ -34,22 +34,30 @@ namespace WebAppContabilidad.Controllers
             {
                 return NotFound();
             }
-            /*var asiento = from a in _context.Asientos
-                          where a.id == id
-                          select new
-                          {
-                              a.CatalogoAuxiliar,
-                              a.Descripcion,
-                              a.Fecha,
-                              a.Monedas,
-                              a.TasaCambio,
-                              a.Transacciones
-                          };*/
+            /*var asiento = (from a in _context.Asientos
+                           where a.id == id
+                           select new
+                           {
+                               a.id,
+                               a.CatalogoAuxiliar,
+                               a.Descripcion,
+                               a.Fecha,
+                               a.Monedas,
+                               a.TasaCambio,
+                               Transacciones = from t in _context.TransaccionesAsientos
+                                               where a.id == t.AsientoId
+                                               select new
+                                               {
+                                                   t.CuentaContable,
+                                                   t.Monto,
+                                                   t.TipoMovimiento
+                                               }
+                           }).AsEnumerable().FirstOrDefault();*/
             var asiento = await _context.Asientos
-                .Include(a => a.CatalogoAuxiliar)
-                .Include(a => a.Monedas)
-                //.Include(a => a.Transacciones)
-                .FirstOrDefaultAsync(m => m.id == id);
+                 .Include(a => a.CatalogoAuxiliar)
+                 .Include(a => a.Monedas)
+                 .Include(a => a.Transacciones)
+                 .FirstOrDefaultAsync(m => m.id == id);
             if (asiento == null)
             {
                 return NotFound();
