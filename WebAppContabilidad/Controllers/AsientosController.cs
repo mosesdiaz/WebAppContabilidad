@@ -34,6 +34,7 @@ namespace WebAppContabilidad.Controllers
             {
                 return NotFound();
             }
+            
             /*var asiento = (from a in _context.Asientos
                            where a.id == id
                            select new
@@ -62,6 +63,11 @@ namespace WebAppContabilidad.Controllers
             {
                 return NotFound();
             }
+
+            ViewData["Transacciones"] = _context.TransaccionesAsientos
+                .Include(x=>x.CuentaContable)
+                .Include(x=>x.TipoMovimiento)
+                .Where(x => x.AsientoId == id);
 
             return View(asiento);
         }
@@ -92,6 +98,7 @@ namespace WebAppContabilidad.Controllers
         {
             if (ModelState.IsValid)
             {
+                #region guardar asiento y transacciones
                 //crear asiento
                 asiento.Estado = "R";
                 asiento.TasaCambio = _context.Monedas.Where(x => x.Id == asiento.MonedasId)
@@ -127,9 +134,11 @@ namespace WebAppContabilidad.Controllers
                     .Select(x => x.TipoMovimientoId).FirstOrDefault();
                 _context.Add(transaccionesAsientos2);
                 await _context.SaveChangesAsync();
+                #endregion
 
                 return RedirectToAction(nameof(Index));
             }
+            #region viewdata
             ViewData["CatalogoAuxiliarId"] = new SelectList(_context.CatalogoAuxiliares, "Id", "Descripcion", asiento.CatalogoAuxiliarId);
             ViewData["MonedasId"] = new SelectList(_context.Monedas, "Id", "Descripcion", asiento.MonedasId);
 
@@ -137,6 +146,8 @@ namespace WebAppContabilidad.Controllers
             var ccm = _context.CuentasContables.Where(x => x.PermiteMovimiento == true).Where(x => x.TiposCuenta.TipoMovimientoId == 2);
             ViewData["CuentaCredito"] = new SelectList(ccm, "Id", "Descripcion", transaccionesAsientos1.CuentasContablesId);
             ViewData["CuentaDebito"] = new SelectList(cdm, "Id", "Descripcion", transaccionesAsientos2.CuentasContablesId);
+            #endregion
+
             return View(asiento);
         }
 
@@ -230,5 +241,12 @@ namespace WebAppContabilidad.Controllers
         {
             return _context.Asientos.Any(e => e.id == id);
         }
+
+        /*public ActionResult ViewTransacciones(int asiento)
+        {
+            var transacciones = _context.TransaccionesAsientos;
+                //.Where(x => x.AsientoId == asiento);
+            return PartialView(transacciones);
+        }*/
     }
 }
