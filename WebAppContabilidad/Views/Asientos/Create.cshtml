@@ -1,0 +1,68 @@
+﻿@model WebAppContabilidad.Models.Asiento
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Asiento</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Descripcion" class="control-label"></label>
+                <input asp-for="Descripcion" class="form-control" />
+                <span asp-validation-for="Descripcion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CatalogoAuxiliarId" class="control-label"></label>
+                <select asp-for="CatalogoAuxiliarId" class="form-control" asp-items="ViewBag.CatalogoAuxiliarId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Fecha" class="control-label"></label>
+                <input asp-for="Fecha" class="form-control" />
+                <span asp-validation-for="Fecha" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MonedasId" class="control-label"></label>
+                <select asp-for="MonedasId" class="form-control" asp-items="ViewBag.MonedasId"></select>
+            </div>
+            
+            <h2>Transaccion 1: Credito</h2>
+            <div class="form-group">
+                <label class="control-label">Monto</label>
+                @Html.TextBox("monto1")
+            </div>
+            <div class="form-group">
+                <label class="control-label">Cuenta creditada</label>
+                @*<select class="form-control" asp-items="ViewBag.CuentaCredito"></select>*@
+                @Html.DropDownList("CuentaCredito", new SelectList(ViewBag.CuentaCredito, "Id", "Descripcion"))
+            </div>
+
+            <h2>Transaccion 2: Debito</h2>
+            <div class="form-group">
+                <label class="control-label">Monto</label>
+                @Html.TextBox("monto2")
+            </div>
+            <div class="form-group">
+                <label class="control-label">Cuenta debitada</label>
+                @*<select class="form-control" asp-items="ViewBag.CuentaDebito"></select>*@
+                @Html.DropDownList("CuentaDebito", new SelectList (ViewBag.CuentaDebito,"Id","Descripcion"))
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

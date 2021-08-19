@@ -69,8 +69,15 @@ namespace WebAppContabilidad.Controllers
         // GET: Asientos/Create
         public IActionResult Create()
         {
-            ViewData["CatalogoAuxiliarId"] = new SelectList(_context.CatalogoAuxiliares, "Id", "Id");
-            ViewData["MonedasId"] = new SelectList(_context.Monedas, "Id", "Id");
+            //asientos
+            ViewData["CatalogoAuxiliarId"] = new SelectList(_context.CatalogoAuxiliares, "Id", "Descripcion");
+            ViewData["MonedasId"] = new SelectList(_context.Monedas, "Id", "Descripcion");
+
+            //transacciones
+            var cdm = _context.CuentasContables.Where(x => x.PermiteMovimiento == true).Where(x => x.TiposCuenta.TipoMovimientoId == 1);
+            var ccm = _context.CuentasContables.Where(x => x.PermiteMovimiento == true).Where(x => x.TiposCuenta.TipoMovimientoId == 2);            
+            ViewData["CuentaCredito"] = ccm.AsEnumerable();
+            ViewData["CuentaDebito"] =cdm.AsEnumerable();
             return View();
         }
 
@@ -79,16 +86,57 @@ namespace WebAppContabilidad.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,Descripcion,CatalogoAuxiliarId,Fecha,Estado,MonedasId,TasaCambio")] Asiento asiento)
+        public async Task<IActionResult> Create([Bind("id,Descripcion,CatalogoAuxiliarId,Fecha,Estado,MonedasId,TasaCambio")] Asiento asiento,
+            TransaccionesAsientos transaccionesAsientos1, TransaccionesAsientos transaccionesAsientos2,
+            double monto1, double monto2, int CuentaCredito, int CuentaDebito)
         {
             if (ModelState.IsValid)
             {
+                //crear asiento
+                asiento.Estado = "R";
+                asiento.TasaCambio = _context.Monedas.Where(x => x.Id == asiento.MonedasId)
+                                .Select(x => x.Tasa).FirstOrDefault();
                 _context.Add(asiento);
                 await _context.SaveChangesAsync();
+
+                //crear transaccion 1
+                transaccionesAsientos1.Monto = monto1;
+                transaccionesAsientos1.CuentasContablesId = CuentaCredito;
+                transaccionesAsientos1.AsientoId = asiento.id;
+                
+                var cc = _context.CuentasContables
+                    .Where(x=>x.Id==CuentaCredito)
+                    .Select(x => x.TiposCuenta.TipoMovimientoId).FirstOrDefault();//tipo de movimiento de la cuenta contable
+                transaccionesAsientos1.TipoMovimientoId = _context.TipoMovimiento
+                    .Where(x => x.TipoMovimientoId == cc)
+                    .Select(x => x.TipoMovimientoId).FirstOrDefault();
+
+                _context.Add(transaccionesAsientos1);
+                
+                //crear transaccion 2
+                transaccionesAsientos2.Monto = monto2;
+                transaccionesAsientos2.CuentasContablesId = CuentaDebito;
+                transaccionesAsientos2.AsientoId = asiento.id;
+
+                cc = _context.CuentasContables
+                    .Where(x => x.Id == CuentaDebito)
+                    .Select(x => x.TiposCuenta.TipoMovimientoId).FirstOrDefault();//tipo de movimiento de la cuenta contable
+
+                transaccionesAsientos2.TipoMovimientoId = _context.TipoMovimiento
+                    .Where(x => x.TipoMovimientoId == cc)
+                    .Select(x => x.TipoMovimientoId).FirstOrDefault();
+                _context.Add(transaccionesAsientos2);
+                await _context.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CatalogoAuxiliarId"] = new SelectList(_context.CatalogoAuxiliares, "Id", "Id", asiento.CatalogoAuxiliarId);
-            ViewData["MonedasId"] = new SelectList(_context.Monedas, "Id", "Id", asiento.MonedasId);
+            ViewData["CatalogoAuxiliarId"] = new SelectList(_context.CatalogoAuxiliares, "Id", "Descripcion", asiento.CatalogoAuxiliarId);
+            ViewData["MonedasId"] = new SelectList(_context.Monedas, "Id", "Descripcion", asiento.MonedasId);
+
+            var cdm = _context.CuentasContables.Where(x => x.PermiteMovimiento == true).Where(x => x.TiposCuenta.TipoMovimientoId == 1);
+            var ccm = _context.CuentasContables.Where(x => x.PermiteMovimiento == true).Where(x => x.TiposCuenta.TipoMovimientoId == 2);
+            ViewData["CuentaCredito"] = new SelectList(ccm, "Id", "Descripcion", transaccionesAsientos1.CuentasContablesId);
+            ViewData["CuentaDebito"] = new SelectList(cdm, "Id", "Descripcion", transaccionesAsientos2.CuentasContablesId);
             return View(asiento);
         }
 
