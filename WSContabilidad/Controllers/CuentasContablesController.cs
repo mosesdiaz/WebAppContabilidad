@@ -43,7 +43,7 @@ namespace WSContabilidad.Controllers
 
         // PUT: api/CuentasContables/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
+/*        [HttpPut("{id}")]
         public async Task<IActionResult> PutCuentasContables(int id, CuentasContables cuentasContables)
         {
             if (id != cuentasContables.Id)
@@ -97,7 +97,7 @@ namespace WSContabilidad.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
-        }
+        }*/
 
         private bool CuentasContablesExists(int id)
         {

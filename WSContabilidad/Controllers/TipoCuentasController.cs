@@ -43,7 +43,7 @@ namespace WSContabilidad.Controllers
 
         // PUT: api/TipoCuentas/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
+/*        [HttpPut("{id}")]
         public async Task<IActionResult> PutTipoCuenta(int id, TipoCuenta tipoCuenta)
         {
             if (id != tipoCuenta.id)
@@ -98,7 +98,7 @@ namespace WSContabilidad.Controllers
 
             return NoContent();
         }
-
+*/
         private bool TipoCuentaExists(int id)
         {
             return _context.TiposCuenta.Any(e => e.id == id);

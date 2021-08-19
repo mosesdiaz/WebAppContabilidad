@@ -72,7 +72,7 @@ namespace WSContabilidad.Controllers
             return NoContent();
         }
 
-        // POST: api/CatalogoAuxiliar
+/*        // POST: api/CatalogoAuxiliar
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<CatalogoAuxiliar>> PostCatalogoAuxiliar(CatalogoAuxiliar catalogoAuxiliar)
@@ -97,7 +97,7 @@ namespace WSContabilidad.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
-        }
+        }*/
 
         private bool CatalogoAuxiliarExists(int id)
         {

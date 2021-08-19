@@ -41,7 +41,7 @@ namespace WSContabilidad.Controllers
             return transaccionesAsientos;
         }
 
-        // PUT: api/TransaccionesAsientos/5
+/*        // PUT: api/TransaccionesAsientos/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTransaccionesAsientos(int id, TransaccionesAsientos transaccionesAsientos)
@@ -70,7 +70,7 @@ namespace WSContabilidad.Controllers
             }
 
             return NoContent();
-        }
+        }*/
 
         // POST: api/TransaccionesAsientos
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -84,7 +84,7 @@ namespace WSContabilidad.Controllers
         }
 
         // DELETE: api/TransaccionesAsientos/5
-        [HttpDelete("{id}")]
+/*        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTransaccionesAsientos(int id)
         {
             var transaccionesAsientos = await _context.TransaccionesAsientos.FindAsync(id);
@@ -97,7 +97,7 @@ namespace WSContabilidad.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
-        }
+        }*/
 
         private bool TransaccionesAsientosExists(int id)
         {

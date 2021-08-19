@@ -43,7 +43,7 @@ namespace WSContabilidad.Controllers
 
         // PUT: api/TipoMovimientos/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
+/*        [HttpPut("{id}")]
         public async Task<IActionResult> PutTipoMovimiento(int id, TipoMovimiento tipoMovimiento)
         {
             if (id != tipoMovimiento.TipoMovimientoId)
@@ -70,11 +70,11 @@ namespace WSContabilidad.Controllers
             }
 
             return NoContent();
-        }
+        }*/
 
         // POST: api/TipoMovimientos
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
+ /*       [HttpPost]
         public async Task<ActionResult<TipoMovimiento>> PostTipoMovimiento(TipoMovimiento tipoMovimiento)
         {
             _context.TipoMovimiento.Add(tipoMovimiento);
@@ -97,7 +97,7 @@ namespace WSContabilidad.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
-        }
+        }*/
 
         private bool TipoMovimientoExists(int id)
         {
